@@ -5,12 +5,17 @@ Email: haripowesleyt@gmail.com
 GitHub: https://github.com/haripowesleyt
 Date Created: 2024-10-24
 Version: 1.0
-Description: 
-            A module to print colored and formatted text using ANSI escape codes.
+Description: A module to print colored and formatted text using ANSI escape codes.
 
-            Implements Python's built-in print() function (see https://docs.python.org/3/library/functions.html#print) along with ANSI escape sequences to display colored and/or formatted text.
-            ANSI refers to the American National Standards Institute, and ANSI escape codes are sequences of characters used to control text formatting in terminals. These codes enable changes to text color, background color, and other display attributes. 
-            Utilizes ANSI escape sequences to print text with specified colors (foreground and/or background) and formats (e.g., bold, italic, underlined).
+Implements Python's built-in print() function (see 
+https://docs.python.org/3/library/functions.html#print) along with ANSI escape 
+sequences to display colored and/or formatted text.
+
+ANSI refers to the American National Standards Institute, and ANSI escape codes are 
+sequences of characters used to control text formatting in terminals. These codes 
+enable changes to text color, background color, and other display attributes. This 
+module utilizes ANSI escape sequences to print text with specified colors (foreground 
+and/or background) and formats (e.g., bold, italic, underlined).
 """
 
 
@@ -25,34 +30,41 @@ def cprint(
     flush: bool = False,
 ) -> None:
     """
-    cprint() stands for "color print" and mimics Python's built-in print() function while adding display properties like color and format.
+    cprint() stands for "color print" and mimics Python's built-in print() function while
+    adding display properties like color and format.
 
-    The cprint() function has all the parameters of print() plus three additional parameters: fg, bg, and fmt. While these parameters do not alter the internal functioning of print(), they enable enhanced display properties. 
-    Any valid print() statement is also a valid cprint() statement, allowing you to utilize cprint() with the added advantage of foreground color, background color, and display formats.
+    The cprint() function has all the parameters of print() plus three additional
+    parameters: fg, bg, and fmt. While these parameters do not alter the internal
+    functioning of print(), they enable enhanced display properties. Any valid print()
+    statement is also a valid cprint() statement, allowing you to utilize cprint() with the
+    added advantage of foreground color, background color, and display formats.
 
-    Supported colors (for both foreground and background) are:
-    - black
-    - gray / grey
-    - red / light-red
-    - green / light-green
-    - yellow / light-yellow
-    - blue / light-blue
-    - magenta / light-magenta
-    - cyan / light-cyan
-    - white / whitesmoke
+        Supported colors (for both foreground and background) are:
+        - black
+        - gray / grey
+        - red / light-red
+        - green / light-green
+        - yellow / light-yellow
+        - blue / light-blue
+        - magenta / light-magenta
+        - cyan / light-cyan
+        - white / whitesmoke
 
-    Supported formats are:
-    - bold: thickens the text
-    - dim: reduces the text's transparency
-    - italic: leans the text at an angle
-    - underline: adds a line beneath the text
-    - blink: alternates visibility of the text
-    - reverse: swaps the foreground and background colors
-    - hidden: makes the text invisible
-    - strikethrough: adds a horizontal line through the text
+        Supported formats are:
+        - bold: thickens the text
+        - dim: reduces the text's transparency
+        - italic: leans the text at an angle
+        - underline: adds a line beneath the text
+        - blink: alternates visibility of the text
+        - reverse: swaps the foreground and background colors
+        - hidden: makes the text invisible
+        - strikethrough: adds a horizontal line through the text
 
-    Note that *objects, sep, end, file, and flush are not cprint()-specific parameters; they are borrowed from the built-in print() function. 
-    For more information on their usage, visit the official documentation at https://docs.python.org/3/library/functions.html#print). You can use cprint() just like print().
+    Note that *objects, sep, end, file, and flush are not cprint()-specific parameters;
+    they are borrowed from the built-in print() function. For more information on their
+    usage, visit the official documentation at
+    https://docs.python.org/3/library/functions.html#print. You can use cprint() just like
+    print().
 
     Args:
         fg (str, optional): Foreground color name (e.g., "red"). Defaults to "".
@@ -120,21 +132,21 @@ def cprint(
         "strikethrough": "\033[9m",
     }
 
-    if fg == "":
+    if fg == "":  # Default value
         fg_ansi_code: str = ""
     else:
         fg_ansi_code: object = fg_colors_map.get(fg)
         if not fg_ansi_code:
             raise ValueError(f"fprint() Error: unrecognised foreground color '{fg}'.")
 
-    if bg == "":
+    if bg == "":  # Default Value
         bg_ansi_code: str = ""
     else:
         bg_ansi_code: object = bg_colors_map.get(bg)
         if not bg_ansi_code:
             raise ValueError(f"fprint() Error: unrecognised background color '{bg}'.")
 
-    if fmt == "":
+    if fmt == "":  # Default Value
         fmt_ansi_code: str = ""
     else:
         fmt_ansi_code: object = formats_map.get(fmt)
@@ -143,16 +155,12 @@ def cprint(
 
     ansi_code_for_reset: str = "\033[0m"
 
-    print(
-        fmt_ansi_code,
-        bg_ansi_code,
-        fg_ansi_code,
-    )
+    print(fmt_ansi_code, bg_ansi_code, fg_ansi_code, sep="", end="")
     print(
         *objects,
         sep=sep,
-        end=end,
+        end="",
         file=file,
         flush=flush,
     )
-    print(ansi_code_for_reset)
+    print(ansi_code_for_reset, end=end)
